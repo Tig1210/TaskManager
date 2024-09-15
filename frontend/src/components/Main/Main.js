@@ -1,7 +1,7 @@
 import styles from './Main.module.scss'
 
-function Main() {
-  return <div className={styles.main}>Main</div>
+function Main({ children }) {
+  return <div className={styles.main}>{children}</div>
 }
 
 export default Main
