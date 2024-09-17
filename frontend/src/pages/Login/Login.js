@@ -3,10 +3,14 @@ import Header from '../../components/Header/Header'
 import Main from '../../components/Main/Main'
 
 function Login() {
-  const loginForm = [
-    { name: 'login', label: 'Логин', value: '' },
-    { name: 'password', label: 'Пароль', value: '' },
-  ]
+  const loginForm = {
+    formName: 'login',
+    inputsList: [
+      { name: 'login', label: 'Логин', value: '' },
+      { name: 'password', label: 'Пароль', value: '' },
+    ],
+    submitName: 'Войти',
+  }
 
   return (
     <>

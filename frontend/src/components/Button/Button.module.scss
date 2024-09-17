@@ -1,23 +1,28 @@
+button {
+  padding: 10px;
+}
+
 .default {
-  // height: 100px;
-  // width: 100%;
-  // padding: 10px;
   background-color: white;
   border-radius: 5px;
   border: 1px solid black;
+  color: black;
 
-  p {
-    // padding: 10px;
-    margin: 10px;
-    color: black;
+  &:disabled {
+    background-color: orange;
+    border: none;
+    color: white;
   }
 }
 
-.disabled {
-  background-color: gray;
-  border: none;
+.form {
+  background-color: red;
+  width: 200px;
 
-  p {
+  &:disabled {
+    background-color: gray;
+    opacity: 0.5;
+    border: none;
     color: white;
   }
 }

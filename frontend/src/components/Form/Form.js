@@ -1,36 +1,28 @@
 import { useState } from 'react'
 import styles from './Form.module.scss'
 import Input from '../Input/Input'
+import Button from '../Button/Button'
+import { submitForm } from '../../utils/submitForm/submitForm'
 
 function Form({ form }) {
-  const [infoForm, setInfoForm] = useState(form)
+  const { formName, inputsList, submitName } = form
 
-  console.log(infoForm)
+  const [infoForm, setInfoForm] = useState(inputsList)
 
-  const updateInputForm = (currentInput, currentValue) => {
-    const newInfoForm = [...infoForm]
-
-    const findInput = newInfoForm.find(
-      (info) => info.name === currentInput.name
-    )
-
-    if (findInput) {
-      findInput.value = currentValue
-    }
-
-    setInfoForm(newInfoForm)
-  }
+  console.log(formName, infoForm)
 
   return (
     <div className={styles.main}>
       <div className={styles.content}>
         {infoForm.map((input, index) => (
-          <Input
-            key={index}
-            inputInfo={input}
-            updateInputForm={updateInputForm}
-          />
+          <Input key={index} inputInfo={input} setInfoForm={setInfoForm} />
         ))}
+        <Button
+          type={'form'}
+          disabled={true}
+          name={submitName}
+          onClick={() => submitForm(formName)}
+        />
       </div>
     </div>
   )

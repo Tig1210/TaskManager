@@ -1,30 +1,39 @@
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import styles from './Button.module.scss'
+import { useLocation } from 'react-router-dom'
 
 function Button({ ...props }) {
-  const { name, onClick, path } = props
+  const location = useLocation()
 
-  const activeScreen = useSelector((state) => state.activeScreen)
-  console.log(activeScreen)
+  const { name, onClick, path, type, disabled } = props
+  console.log(disabled)
 
-  const disableActiveBtn = () => {
-    if (activeScreen.path !== path) {
-      return onClick
-    }
+  const stylesBtn = {
+    header: styles.default,
+    form: styles.form,
   }
 
-  const activeBtn = () => {
-    if (activeScreen.path === path) {
-      return ' ' + styles.disabled
-    } else {
-      return ' '
+  const disabledBtn = () => {
+    if (type === 'header') {
+      if (location.pathname !== path) {
+        return false
+      } else {
+        return true
+      }
+    }
+    if (type === 'form') {
+      return !disabled
     }
   }
 
   return (
-    <div className={styles.default + activeBtn()} onClick={disableActiveBtn()}>
-      <p>{name}</p>
-    </div>
+    <button
+      className={stylesBtn[type]}
+      onClick={onClick}
+      disabled={disabledBtn()}
+    >
+      {name}
+    </button>
   )
 }
 
