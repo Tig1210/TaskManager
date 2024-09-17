@@ -22,7 +22,7 @@ function Button({ ...props }) {
       }
     }
     if (type === 'form') {
-      return !disabled
+      return disabled
     }
   }
 

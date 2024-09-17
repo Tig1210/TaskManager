@@ -1,8 +1,7 @@
 export const submitForm = (formName) => {
-  console.log(formName)
   const currentSubmit = {
-    login: loginSubmit(),
-    registration: registrationSubmit(),
+    login: loginSubmit,
+    registration: registrationSubmit,
   }
 
   function loginSubmit() {
@@ -13,5 +12,5 @@ export const submitForm = (formName) => {
     console.log('registration')
   }
 
-  return currentSubmit[formName]
+  return currentSubmit[formName]()
 }

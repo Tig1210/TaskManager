@@ -1,5 +1,7 @@
 .main {
-  border: 1px solid green;
+  position: relative;
+  background-color: rgba($color: white, $alpha: 0.8);
+  border-radius: 15px;
   box-sizing: border-box;
   height: 100%;
   margin-top: 20px;
@@ -8,4 +10,5 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  overflow-x: hidden;
 }

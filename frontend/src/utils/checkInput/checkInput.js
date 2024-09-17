@@ -1,9 +1,9 @@
 export const checkInput = (value, inputName) => {
   const currentInput = {
-    name: checkName(),
-    mail: checkMail(),
-    login: checkLogin(),
-    password: checkPassword(),
+    name: checkName,
+    mail: checkMail,
+    login: checkLogin,
+    password: checkPassword,
   }
 
   function checkName() {
@@ -38,5 +38,5 @@ export const checkInput = (value, inputName) => {
     }
   }
 
-  return currentInput[inputName]
+  return currentInput[inputName]()
 }

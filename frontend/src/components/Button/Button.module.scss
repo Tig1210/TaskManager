@@ -1,22 +1,25 @@
 button {
   padding: 10px;
+  border: none;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 
 .default {
   background-color: white;
-  border-radius: 5px;
-  border: 1px solid black;
   color: black;
 
   &:disabled {
     background-color: orange;
     border: none;
     color: white;
+    box-shadow: none;
   }
 }
 
 .form {
-  background-color: red;
+  background-color: green;
+  color: white;
   width: 200px;
 
   &:disabled {
@@ -24,5 +27,6 @@ button {
     opacity: 0.5;
     border: none;
     color: white;
+    box-shadow: none;
   }
 }
