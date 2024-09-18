@@ -1,0 +1,112 @@
+@keyframes showUp {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardMove {
+  0% {
+    opacity: 0;
+    box-shadow: none;
+  }
+  12% {
+    opacity: 1;
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+  24% {
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+  36% {
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+
+  48% {
+    transform: translateX(125%);
+    box-shadow: none;
+  }
+  60% {
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+  72% {
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+  84% {
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(250%);
+    box-shadow: none;
+    opacity: 0;
+  }
+}
+
+.animationBlock {
+  opacity: 0;
+  border: 1px solid gray;
+  border-bottom: none;
+  width: 50%;
+  height: 300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  justify-content: center;
+  animation: showUp 1s ease 3s 1 normal forwards;
+
+  .col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 300px;
+    p {
+      animation: none;
+      opacity: 1;
+      font-size: 18px;
+    }
+    // border: 1px solid gray;
+  }
+
+  .col:nth-child(2) {
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+  }
+
+  .block {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    position: relative;
+    margin-top: 50px;
+    width: 80%;
+    height: 200px;
+    background-color: orange;
+
+    display: flex;
+    justify-content: center;
+    animation: cardMove 8s ease-out 2s infinite normal forwards;
+    border-radius: 10px;
+  }
+
+  .blockSec {
+    grid-column-start: 1;
+    grid-row-start: 2;
+    position: relative;
+    margin-top: 50px;
+    width: 80%;
+    height: 200px;
+    background-color: purple;
+
+    display: flex;
+    justify-content: center;
+    animation: cardMove 8s ease-out 5.5s infinite normal forwards;
+    border-radius: 10px;
+  }
+}

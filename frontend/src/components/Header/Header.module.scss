@@ -1,3 +1,23 @@
+@keyframes rotateArrow {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate((180deg));
+  }
+}
+
+@keyframes rotateBack {
+  from {
+    transform: rotate(180deg);
+  }
+
+  to {
+    transform: rotate((0deg));
+  }
+}
+
 .main {
   width: 100%;
   height: 100px;
@@ -5,8 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // padding-top: 10px;
   margin-top: 10px;
+  position: relative;
 
   .content {
     background-color: white;
@@ -24,6 +44,47 @@
       display: flex;
       align-items: center;
       gap: 20px;
+
+      .user {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .avatar {
+          border: 1px solid red;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+
+        .userBtn {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotateBack 1s ease 0s 1 normal forwards;
+            & svg {
+              width: 40px;
+              height: 40px;
+            }
+
+            & svg * {
+              stroke: gray;
+            }
+          }
+
+          .iconActive {
+            animation: rotateArrow 1s ease 0s 1 normal forwards;
+
+            & svg * {
+              stroke: green;
+            }
+          }
+        }
+      }
     }
   }
 }

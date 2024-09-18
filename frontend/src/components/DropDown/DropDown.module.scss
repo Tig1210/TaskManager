@@ -1,0 +1,25 @@
+.main {
+  width: 200px;
+  height: auto;
+  background-color: white;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  z-index: 1;
+  border-radius: 0px 0px 15px 15px;
+  animation: hidetoRigth 1s ease 0s 1 normal forwards;
+
+  .content {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .btn {
+      width: 100%;
+      height: 20px;
+      border: 1px solid green;
+    }
+  }
+}
