@@ -1,6 +1,6 @@
-import styles from './AnimationBlock.module.scss'
+import styles from './AnimationBlockTasks.module.scss'
 
-function AnimationBlock() {
+function AnimationBlockTasks() {
   return (
     <div className={styles.animationBlock}>
       <div className={styles.col}>
@@ -18,4 +18,4 @@ function AnimationBlock() {
   )
 }
 
-export default AnimationBlock
+export default AnimationBlockTasks

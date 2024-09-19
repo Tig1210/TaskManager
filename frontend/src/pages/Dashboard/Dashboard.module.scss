@@ -1,0 +1,69 @@
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 20px;
+
+  .menu {
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+
+    .block {
+      width: 100%;
+      height: auto;
+      border: 1px solid red;
+      margin: 20px;
+      box-sizing: border-box;
+    }
+  }
+
+  .dashboard {
+    width: 80%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+
+    // padding: 10px;
+
+    .table {
+      width: 100%;
+      height: auto;
+      margin: 20px;
+      overflow: auto;
+
+      table {
+        width: 100%;
+        height: 100%;
+        table-layout: fixed;
+        border-collapse: collapse;
+
+        thead {
+          height: 10%;
+
+          td {
+            border: 1px solid red;
+          }
+        }
+        tbody {
+          height: 90%;
+
+          td {
+            border-left: 1px solid red;
+            border-right: 1px solid red;
+          }
+        }
+      }
+
+      td {
+        width: 400px;
+      }
+    }
+  }
+}
