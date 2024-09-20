@@ -1,10 +1,9 @@
 import styles from './Dashboard.module.scss'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 function Dashboard() {
   const [isDragging, setIsDragging] = useState(false)
-  const ref = useRef()
 
   const data = [
     {
@@ -14,6 +13,16 @@ function Dashboard() {
     },
     {
       id: 2,
+      content: 'Среднее',
+      status: 'К выполнению',
+    },
+    {
+      id: 3,
+      content: 'Среднее',
+      status: 'К выполнению',
+    },
+    {
+      id: 4,
       content: 'Среднее',
       status: 'К выполнению',
     },
@@ -38,7 +47,6 @@ function Dashboard() {
 
   const handleDragStart = (e, card) => {
     e.dataTransfer.setData('text', `${card.id}`)
-
     handleDragging(true)
   }
 
@@ -46,29 +54,16 @@ function Dashboard() {
     console.log(e, status)
     const id = +e.dataTransfer.getData('text')
     handleUpdateList(id, status)
-
-    // e.target.style.background = 'none'
-    // e.target.style.position = 'none'
-    // e.target.style.zIndex = 'none'
-    // e.target.style.width = 'none'
-    // e.dataTransfer.setDragImage(e.target, 0, 0)
-
     handleDragging(false)
   }
 
   const handleDragEnd = () => {
-    // e.target.style.background = 'none'
-    // e.target.style.position = 'none'
-    // e.target.style.zIndex = 'none'
-    // e.target.style.width = 'none'
     handleDragging(false)
   }
 
   const handleDragOver = (e) => {
     e.preventDefault()
   }
-
-  console.log(isDragging)
 
   return (
     <div className={styles.main}>
@@ -90,19 +85,15 @@ function Dashboard() {
                   {cards
                     .filter((card) => card.status === header)
                     .map((card, index) => (
-                      <>
-                        <div
-                          key={index}
-                          className={`${styles.card}`}
-                          draggable={true}
-                          onDragStart={(e) => handleDragStart(e, card)}
-                          onDragEnd={handleDragEnd}
-                        >
-                          {card.content}
-                        </div>
-
-                        <div ref={ref} className={styles.drag}></div>
-                      </>
+                      <div
+                        key={index}
+                        className={`${styles.card}`}
+                        draggable={true}
+                        onDragStart={(e) => handleDragStart(e, card)}
+                        onDragEnd={handleDragEnd}
+                      >
+                        {card.content}
+                      </div>
                     ))}
                 </div>
               </div>
