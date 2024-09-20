@@ -36,34 +36,93 @@
       width: 100%;
       height: auto;
       margin: 20px;
+      // border: 1px solid red;
       overflow: auto;
+      display: flex;
 
-      table {
-        width: 100%;
-        height: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
+      .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        position: relative;
 
-        thead {
-          height: 10%;
+        .block {
+          width: 400px;
+          height: 100%;
+          border: 1px solid black;
+          border-bottom: none;
+          opacity: 1;
 
-          td {
-            border: 1px solid red;
+          &__dragging {
+            border: 1px dotted black;
+            border-bottom: none;
           }
-        }
-        tbody {
-          height: 90%;
 
-          td {
-            border-left: 1px solid red;
-            border-right: 1px solid red;
+          h2 {
+            text-align: center;
+            border-bottom: 1px solid black;
+            padding: 20px;
+          }
+
+          .cardsList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            gap: 40px;
+            opacity: 1;
+
+            .card {
+              position: relative;
+              max-width: 100%;
+              width: 350px;
+              height: 200px;
+              background-color: rgba($color: #8f8f8f, $alpha: 0.5);
+              cursor: move;
+              transition: opacity 0.2s ease-in-out;
+              &:active {
+                opacity: 1;
+                max-width: 290px;
+                width: 100%;
+                box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+                border: 1px solid red;
+              }
+            }
           }
         }
       }
 
-      td {
-        width: 400px;
-      }
+      // table {
+      //   width: 100%;
+      //   height: 100%;
+      //   table-layout: fixed;
+      //   border-collapse: collapse;
+
+      //   thead {
+      //     height: 10%;
+
+      //     td {
+      //       border: 1px solid red;
+      //     }
+      //   }
+      //   tbody {
+      //     height: 90%;
+
+      //     td {
+      //       border-left: 1px solid red;
+      //       border-right: 1px solid red;
+      //     }
+
+      //     .card {
+      //       width: 80%;
+      //       height: 200px;
+      //       border: 1px solid red;
+      //     }
+      //   }
+      // }
+
+      // td {
+      //   width: 400px;
+      // }
     }
   }
 }
