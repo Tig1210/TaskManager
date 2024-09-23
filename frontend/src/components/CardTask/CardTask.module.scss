@@ -1,0 +1,43 @@
+.card {
+  position: relative;
+  max-width: 100%;
+  width: 350px;
+  height: 200px;
+  background-color: rgba($color: #8f8f8f, $alpha: 0.5);
+  transition: opacity 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+
+  &:active {
+    opacity: 0.5;
+    max-width: 290px;
+    width: 100%;
+    background-color: red;
+    box-shadow: 2px 2px 2px 2px rgba($color: #000000, $alpha: 0.5);
+    cursor: grab;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 25px);
+    height: calc(100% - 25px);
+
+    .title {
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .date {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
