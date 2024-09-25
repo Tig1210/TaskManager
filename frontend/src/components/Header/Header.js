@@ -7,7 +7,7 @@ import { useState } from 'react'
 import DropDown from '../DropDown/DropDown'
 
 function Header() {
-  const auth = true
+  const auth = false
 
   const [active, setActive] = useState(false)
 

@@ -12,8 +12,6 @@ export const activeScreenSlice = createSlice({
   },
 })
 
-// this is for dispatch
 export const { setActiveScreen } = activeScreenSlice.actions
 
-// this is for configureStore
 export default activeScreenSlice.reducer

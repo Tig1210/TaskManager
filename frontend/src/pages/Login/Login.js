@@ -1,6 +1,9 @@
+import AlertMessage from '../../components/AlertMessage/AlertMessage'
 import Form from '../../components/Form/Form'
 import Header from '../../components/Header/Header'
+import Loader from '../../components/Loader/Loader'
 import Main from '../../components/Main/Main'
+import { useLoginMutation } from '../../store/reducers/authApi/authApi'
 
 function Login() {
   const loginForm = {
@@ -12,12 +15,21 @@ function Login() {
     submitName: 'Войти',
   }
 
+  const [checkUser, { isError, error, data, isLoading }] = useLoginMutation()
+
   return (
     <>
       <Header />
       <Main>
-        <div>Login</div>
-        <Form form={loginForm} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <div>Login</div>
+            <Form form={loginForm} submit={checkUser} />
+            {isError ? <AlertMessage error={error} data={data} /> : null}
+          </>
+        )}
       </Main>
     </>
   )

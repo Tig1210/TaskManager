@@ -5,7 +5,7 @@ import Dashboard from '../Dashboard/Dashboard'
 import styles from './Home.module.scss'
 
 function Home() {
-  const auth = true
+  const auth = false
 
   return (
     <>

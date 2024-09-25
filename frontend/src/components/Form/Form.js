@@ -2,14 +2,20 @@ import { useState } from 'react'
 import styles from './Form.module.scss'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-import { submitForm } from '../../utils/submitForm/submitForm'
+// import { submitForm } from '../../utils/submitForm/submitForm'
+import { editFormData } from '../../utils/editFormData/editFormData'
 
-function Form({ form }) {
+function Form({ form, submit }) {
   const { formName, inputsList, submitName } = form
 
   const [infoForm, setInfoForm] = useState(inputsList)
 
   console.log(formName, infoForm)
+
+  const handleApi = () => {
+    const user = editFormData(infoForm)
+    submit(user)
+  }
 
   return (
     <div className={styles.main}>
@@ -19,9 +25,9 @@ function Form({ form }) {
         ))}
         <Button
           type={'form'}
-          disabled={true}
+          disabled={false}
           name={submitName}
-          onClick={() => submitForm(formName)}
+          onClick={handleApi}
         />
       </div>
     </div>

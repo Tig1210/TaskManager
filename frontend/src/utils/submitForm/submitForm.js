@@ -1,4 +1,7 @@
-export const submitForm = (formName) => {
+import { fetchRegistration } from '../../api'
+import { editFormData } from '../editFormData/editFormData'
+
+export const submitForm = (formName, formData) => {
   const currentSubmit = {
     login: loginSubmit,
     registration: registrationSubmit,
@@ -9,7 +12,9 @@ export const submitForm = (formName) => {
   }
 
   function registrationSubmit() {
-    console.log('registration')
+    console.log('registration', formData)
+
+    fetchRegistration(editFormData(formData))
   }
 
   return currentSubmit[formName]()

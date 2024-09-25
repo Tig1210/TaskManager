@@ -6,7 +6,6 @@ function Button({ ...props }) {
   const location = useLocation()
 
   const { name, onClick, path, type, disabled } = props
-  console.log(disabled)
 
   const stylesBtn = {
     header: styles.default,
