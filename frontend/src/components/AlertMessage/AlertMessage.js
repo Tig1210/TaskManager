@@ -16,7 +16,7 @@ function AlertMessage({ error, data }) {
     >
       <div className={styles.content}>
         {data && <p>{data.message}</p>}
-        {error && <p>{error.data.message}</p>}
+        {error && <p>{error}</p>}
         <div
           className={`${styles.line} ${styles.animateLine}`}
           style={{ backgroundColor: error ? 'red' : 'green' }}

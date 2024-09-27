@@ -5,9 +5,12 @@ import styles from './Header.module.scss'
 import { ReactComponent as ArrowDownIcon } from '../../assets/icons/arrow-down.svg'
 import { useState } from 'react'
 import DropDown from '../DropDown/DropDown'
+import { useSelector } from 'react-redux'
 
 function Header() {
-  const auth = false
+  const auth = useSelector((data) => data.userSession)
+
+  console.log(auth)
 
   const [active, setActive] = useState(false)
 
@@ -15,6 +18,8 @@ function Header() {
   const location = useLocation()
 
   console.log(location.pathname)
+
+  // const { session } = auth
 
   const signBtn = [
     { name: 'Войти', path: '/login' },
@@ -28,13 +33,14 @@ function Header() {
       return ''
     }
   }
+  let session = sessionStorage.getItem('session')
 
   return (
     <div className={styles.main}>
       <div className={styles.content}>
         <div onClick={() => navigate('/')}>TaskManager</div>
         <div className={styles.navigation}>
-          {auth ? (
+          {session ? (
             <div className={styles.user} onClick={() => setActive(!active)}>
               <div className={styles.avatar}></div>
               <div className={styles.userBtn}>

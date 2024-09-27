@@ -4,8 +4,11 @@ import Input from '../Input/Input'
 import Button from '../Button/Button'
 // import { submitForm } from '../../utils/submitForm/submitForm'
 import { editFormData } from '../../utils/editFormData/editFormData'
+import { useDispatch } from 'react-redux'
+import { resetUserInfoStore } from '../../store/reducers/userInfo/userInfo'
 
-function Form({ form, submit }) {
+function Form({ form, submitBtn }) {
+  const dispatch = useDispatch()
   const { formName, inputsList, submitName } = form
 
   const [infoForm, setInfoForm] = useState(inputsList)
@@ -14,7 +17,13 @@ function Form({ form, submit }) {
 
   const handleApi = () => {
     const user = editFormData(infoForm)
-    submit(user)
+
+    dispatch(submitBtn(user)).finally(() =>
+      setTimeout(() => {
+        dispatch(resetUserInfoStore())
+        console.log('DONe')
+      }, 6000)
+    )
   }
 
   return (

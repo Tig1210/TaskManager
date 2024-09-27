@@ -1,8 +1,11 @@
-import AlertMessage from '../../components/AlertMessage/AlertMessage'
+// import AlertMessage from '../../components/AlertMessage/AlertMessage'
+import { useSelector } from 'react-redux'
 import Form from '../../components/Form/Form'
 import Header from '../../components/Header/Header'
 import Main from '../../components/Main/Main'
-import { useRegistrationMutation } from '../../store/reducers/authApi/authApi'
+import { fetchUserRegistration } from '../../store/reducers/userInfo/userInfo'
+import Loader from '../../components/Loader/Loader'
+import AlertMessage from '../../components/AlertMessage/AlertMessage'
 
 function Registration() {
   const registrationForm = {
@@ -16,19 +19,24 @@ function Registration() {
     submitName: 'Зарегестрироваться',
   }
 
-  const [addUser, { isSuccess, isError, error, data }] =
-    useRegistrationMutation()
+  const registrationData = useSelector((data) => data.userInfo)
 
-  // console.log('RESULt---------', result)
+  const { data, error, loading } = registrationData
+
   return (
     <>
       <Header />
       <Main>
-        <div>Registartion</div>
-        <Form form={registrationForm} submit={addUser} />
-        {isError || isSuccess ? (
-          <AlertMessage error={error} data={data} />
-        ) : null}
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Form form={registrationForm} submitBtn={fetchUserRegistration} />
+            {(error !== '' || Object.keys(data).length !== 0) && (
+              <AlertMessage error={error} data={data} />
+            )}
+          </>
+        )}
       </Main>
     </>
   )

@@ -1,14 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import activeScreenReducer from './reducers/activeScreen/activeScreenSlice'
-import showAlertReducer from './reducers/showAlert/showAlert'
-import { authApi } from './reducers/authApi/authApi'
+
+import userInfoReducer from './reducers/userInfo/userInfo'
+import userSessionReducer from './reducers/userSession/userSession'
 
 export default configureStore({
   reducer: {
-    activeScreen: activeScreenReducer,
-    alert: showAlertReducer,
-    [authApi.reducerPath]: authApi.reducer,
+    userInfo: userInfoReducer,
+    userSession: userSessionReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
 })

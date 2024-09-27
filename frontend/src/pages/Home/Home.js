@@ -5,14 +5,14 @@ import Dashboard from '../Dashboard/Dashboard'
 import styles from './Home.module.scss'
 
 function Home() {
-  const auth = false
+  const session = sessionStorage.getItem('session')
 
   return (
     <>
       <Header />
       <Main>
         <div className={styles.main}>
-          {auth ? (
+          {session ? (
             <Dashboard />
           ) : (
             <div className={styles.welcome} key={2}>
