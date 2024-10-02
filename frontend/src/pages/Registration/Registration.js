@@ -1,11 +1,12 @@
 // import AlertMessage from '../../components/AlertMessage/AlertMessage'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { fetchRegistration } from '../../api/auth/auth'
 import Form from '../../components/Form/Form'
-import Header from '../../components/Header/Header'
-import Main from '../../components/Main/Main'
-import { fetchUserRegistration } from '../../store/reducers/userInfo/userInfo'
-import Loader from '../../components/Loader/Loader'
-import AlertMessage from '../../components/AlertMessage/AlertMessage'
+import {
+  resetShowAlert,
+  showText,
+} from '../../store/reducers/showAlert/showAlert'
+import { useNavigate } from 'react-router-dom'
 
 function Registration() {
   const registrationForm = {
@@ -19,25 +20,21 @@ function Registration() {
     submitName: 'Зарегестрироваться',
   }
 
-  const registrationData = useSelector((data) => data.userInfo)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const { data, error, loading } = registrationData
+  const sendLoginRegistration = async (data) => {
+    dispatch(resetShowAlert())
+    const res = await fetchRegistration(data)
+    dispatch(showText({ text: res.message, error: res.name }))
+    if (res.name !== 'Error') {
+      navigate('/login')
+    }
+  }
 
   return (
     <>
-      <Header />
-      <Main>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Form form={registrationForm} submitBtn={fetchUserRegistration} />
-            {(error !== '' || Object.keys(data).length !== 0) && (
-              <AlertMessage error={error} data={data} />
-            )}
-          </>
-        )}
-      </Main>
+      <Form form={registrationForm} submitBtn={sendLoginRegistration} />
     </>
   )
 }

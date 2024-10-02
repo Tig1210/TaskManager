@@ -1,10 +1,36 @@
+import { fetchAddTask, fetchGetTasksBySchemeId } from '../../api/task/task'
 import CardTask from '../../components/CardTask/CardTask'
 import styles from './Dashboard.module.scss'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Dashboard() {
   const [isDragging, setIsDragging] = useState(false)
+
+  const getTasks = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/tasksBySchemeId/${1}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+          },
+        }
+      )
+
+      console.log(res)
+      const result = await res.json()
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getTasks()
+    fetchGetTasksBySchemeId()
+  }, [])
 
   const data = {
     id: 1,
@@ -86,7 +112,9 @@ function Dashboard() {
   return (
     <div className={styles.main}>
       <div className={styles.menu}>
-        <div className={styles.block}></div>
+        <div className={styles.block}>
+          <button onClick={() => fetchAddTask()}>+</button>
+        </div>
       </div>
       <div className={styles.dashboard}>
         <div className={styles.table}>

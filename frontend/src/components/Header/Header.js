@@ -3,15 +3,13 @@ import Button from '../Button/Button'
 import styles from './Header.module.scss'
 
 import { ReactComponent as ArrowDownIcon } from '../../assets/icons/arrow-down.svg'
+import { ReactComponent as DashboardIcon } from '../../assets/icons/sessionNavigation/dashboard.svg'
+import { ReactComponent as CalendarIcon } from '../../assets/icons/sessionNavigation/calendar.svg'
+import { ReactComponent as TableIcon } from '../../assets/icons/sessionNavigation/table.svg'
 import { useState } from 'react'
 import DropDown from '../DropDown/DropDown'
-import { useSelector } from 'react-redux'
 
 function Header() {
-  const auth = useSelector((data) => data.userSession)
-
-  console.log(auth)
-
   const [active, setActive] = useState(false)
 
   const navigate = useNavigate()
@@ -35,10 +33,50 @@ function Header() {
   }
   let session = sessionStorage.getItem('session')
 
+  const dropDownBtns = [
+    {
+      id: 1,
+      name: 'Информация',
+      onClick: () => {
+        navigate('/info')
+      },
+    },
+    {
+      id: 2,
+      name: 'Выйти',
+      onClick: () => {
+        sessionStorage.clear()
+        navigate('/login')
+      },
+    },
+  ]
+
+  const sessionNavigation = [
+    { id: 1, name: 'Доска', icon: <DashboardIcon />, path: '/' },
+    { id: 2, name: 'Таблица', icon: <TableIcon />, path: '/table' },
+    { id: 3, name: 'Календарь', icon: <CalendarIcon />, path: '/calendar' },
+  ]
+
   return (
     <div className={styles.main}>
       <div className={styles.content}>
         <div onClick={() => navigate('/')}>TaskManager</div>
+        {session ? (
+          <div className={styles.sessionNav}>
+            {sessionNavigation.map((nav, index) => (
+              <Button
+                key={index}
+                name={nav.name}
+                path={nav.path}
+                type={'header'}
+                onClick={() => {
+                  navigate(nav.path)
+                }}
+                icon={nav.icon}
+              />
+            ))}
+          </div>
+        ) : null}
         <div className={styles.navigation}>
           {session ? (
             <div className={styles.user} onClick={() => setActive(!active)}>
@@ -49,7 +87,7 @@ function Header() {
                   <ArrowDownIcon />
                 </div>
               </div>
-              {active ? <DropDown /> : null}
+              {active ? <DropDown dropDownList={dropDownBtns} /> : null}
             </div>
           ) : (
             <>

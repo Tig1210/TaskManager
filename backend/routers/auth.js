@@ -4,6 +4,7 @@ const User = require('../models/users')
 const router = express.Router()
 
 const jwt = require('jsonwebtoken')
+const Sh = require('../models/sh')
 
 router.post('/login', async (req, res) => {
   console.log(req.body)
@@ -42,12 +43,18 @@ router.post('/registration', async (req, res) => {
   })
 
   if (!findUser) {
-    await User.create({
+    const user = await User.create({
       name: name,
       mail: mail,
       login: login,
       password: password,
     })
+    await Sh.create({
+      name: name,
+      headers_title: JSON.stringify(['К выполнению', 'В процессе', 'Завершен']),
+      userId: user.id,
+    })
+
     res.status(200).json({ message: 'Пользователь создан' })
   } else {
     res.status(400).json({ message: 'Пользователь с таким логином существует' })

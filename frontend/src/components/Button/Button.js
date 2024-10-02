@@ -1,11 +1,12 @@
 // import { useSelector } from 'react-redux'
+import Loader from '../Loader/Loader'
 import styles from './Button.module.scss'
 import { useLocation } from 'react-router-dom'
 
 function Button({ ...props }) {
   const location = useLocation()
 
-  const { name, onClick, path, type, disabled } = props
+  const { name, onClick, path, type, disabled, loading, icon } = props
 
   const stylesBtn = {
     header: styles.default,
@@ -31,7 +32,8 @@ function Button({ ...props }) {
       onClick={onClick}
       disabled={disabledBtn()}
     >
-      {name}
+      {type === 'header' && disabledBtn() ? icon : null}
+      {loading && type === 'form' ? <Loader /> : name}
     </button>
   )
 }

@@ -1,12 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
-import AlertMessage from '../../components/AlertMessage/AlertMessage'
+import { useDispatch } from 'react-redux'
 import Form from '../../components/Form/Form'
-import Header from '../../components/Header/Header'
-import Loader from '../../components/Loader/Loader'
-import Main from '../../components/Main/Main'
-import { fetchUserLogin } from '../../store/reducers/userInfo/userInfo'
-import { useEffect } from 'react'
-import { updateSession } from '../../store/reducers/userSession/userSession'
+
+// import Loader from '../../components/Loader/Loader'
+// import { fetchUserLogin } from '../../store/reducers/userInfo/userInfo'
+// import { useEffect } from 'react'
+// import { updateSession } from '../../store/reducers/userSession/userSession'
+// import showAlert from '../../store/reducers/showAlert/showAlert'
+import { fetchLogin } from '../../api/auth/auth'
+import {
+  resetShowAlert,
+  showText,
+} from '../../store/reducers/showAlert/showAlert'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const loginForm = {
@@ -19,31 +24,25 @@ function Login() {
   }
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  // console.log(navigate)
 
-  const loginData = useSelector((data) => data.userInfo)
-
-  const { data, error, loading } = loginData
-
-  useEffect(() => {
-    if (Object.keys(data).length !== 0) {
-      dispatch(updateSession(data))
-      sessionStorage.setItem('session', 'true')
+  const sendLoginData = async (data, setLoading) => {
+    dispatch(resetShowAlert())
+    const res = await fetchLogin(data, setLoading)
+    console.log(res)
+    if (res.name === 'Error') {
+      dispatch(showText({ text: res.message, error: res.name }))
+    } else {
+      sessionStorage.setItem('auth', res.token)
+      sessionStorage.setItem('session', true)
+      navigate('/')
     }
-  }, [data])
+  }
 
   return (
     <>
-      <Header />
-      <Main>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <Form form={loginForm} submitBtn={fetchUserLogin} />
-            {error !== '' && <AlertMessage error={error} data={data} />}
-          </>
-        )}
-      </Main>
+      <Form form={loginForm} submitBtn={sendLoginData} />
     </>
   )
 }

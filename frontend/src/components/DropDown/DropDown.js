@@ -1,14 +1,14 @@
 import styles from './DropDown.module.scss'
 
-function DropDown() {
+function DropDown({ dropDownList }) {
   return (
     <div className={styles.main}>
       <div className={styles.content}>
-        <div className={styles.btn}></div>
-        <div className={styles.btn}></div>
-        <div className={styles.btn}></div>
-        <div className={styles.btn}></div>
-        <div className={styles.btn}></div>
+        {dropDownList.map((btn) => (
+          <div key={btn.id} className={styles.btn} onClick={btn.onClick}>
+            <p>{btn.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

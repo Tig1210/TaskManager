@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import styles from './AlertMessage.module.scss'
+import { useDispatch } from 'react-redux'
+import { resetShowAlert } from '../../store/reducers/showAlert/showAlert'
 
-function AlertMessage({ error, data }) {
+function AlertMessage({ alertInfo }) {
   const [animateBack, setAnimateBack] = useState(false)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setTimeout(() => {
       setAnimateBack(true)
+      dispatch(resetShowAlert())
     }, 5000)
   }, [])
 
@@ -15,11 +19,10 @@ function AlertMessage({ error, data }) {
       className={`${styles.main} ${!animateBack ? styles.animateShow : styles.animateHide}`}
     >
       <div className={styles.content}>
-        {data && <p>{data.message}</p>}
-        {error && <p>{error}</p>}
+        <p>{alertInfo.text}</p>
         <div
           className={`${styles.line} ${styles.animateLine}`}
-          style={{ backgroundColor: error ? 'red' : 'green' }}
+          style={{ backgroundColor: alertInfo?.error ? 'red' : 'green' }}
         ></div>
       </div>
     </div>

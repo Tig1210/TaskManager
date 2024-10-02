@@ -1,22 +1,15 @@
 const serverUrl = 'http://localhost:5000/api'
 
-export const fetchLogin = async (data, setLoading) => {
-  setLoading(true)
+export const fetchAddTask = async () => {
   try {
-    const { name, login, password } = data
-    const user = {
-      name: name,
-      login: login,
-      password: password,
-    }
-    const res = await fetch(`${serverUrl}/login`, {
+    const res = await fetch(`${serverUrl}/addTask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify(user),
     })
     const result = await res.json()
+    console.log(result)
     if (res.status === 400) {
       throw new Error(result.message)
     } else {
@@ -25,36 +18,26 @@ export const fetchLogin = async (data, setLoading) => {
   } catch (error) {
     console.log(error)
     return error
-  } finally {
-    setLoading(false)
   }
 }
 
-export const fetchRegistration = async (data) => {
+export const fetchGetTasksBySchemeId = async () => {
   try {
-    const { name, mail, password, login } = data
-    const user = {
-      name: name,
-      login: login,
-      password: password,
-      mail: mail,
-    }
-    const res = await fetch(`${serverUrl}/registration`, {
-      method: 'POST',
+    const res = await fetch(`${serverUrl}/getTasksBySchemeId/${1}`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-      body: JSON.stringify(user),
     })
-
     const result = await res.json()
-
+    console.log(result)
     if (res.status === 400) {
       throw new Error(result.message)
     } else {
       return result
     }
   } catch (error) {
+    console.log(error)
     return error
   }
 }

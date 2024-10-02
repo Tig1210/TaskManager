@@ -16,22 +16,23 @@
   box-sizing: border-box;
 }
 .main {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 15px;
+  height: 15px;
 }
 .main div {
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid currentColor;
+  width: 15px;
+  height: 15px;
+  border: 2px solid green;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: currentColor transparent transparent transparent;
+  border-color: green transparent transparent transparent;
 }
 .main div:nth-child(1) {
   animation-delay: -0.45s;

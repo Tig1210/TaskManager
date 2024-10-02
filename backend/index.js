@@ -6,11 +6,13 @@ const sequelize = require('./config/db')
 const cors = require('cors')
 
 const auth = require('./routers/auth')
+const task = require('./routers/task')
 
 app.use(express.json())
 app.use(cors())
 
 app.use('/api', auth)
+app.use('/api', task)
 
 sequelize
   .sync()

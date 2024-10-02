@@ -1,30 +1,32 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Form.module.scss'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-// import { submitForm } from '../../utils/submitForm/submitForm'
 import { editFormData } from '../../utils/editFormData/editFormData'
-import { useDispatch } from 'react-redux'
-import { resetUserInfoStore } from '../../store/reducers/userInfo/userInfo'
+import { checkInput } from '../../utils/checkInput/checkInput'
 
 function Form({ form, submitBtn }) {
-  const dispatch = useDispatch()
   const { formName, inputsList, submitName } = form
-
   const [infoForm, setInfoForm] = useState(inputsList)
+  const [loading, setLoading] = useState(false)
+  const [disableBtn, setDisableBtn] = useState(true)
 
-  console.log(formName, infoForm)
+  console.log(formName)
 
   const handleApi = () => {
     const user = editFormData(infoForm)
-
-    dispatch(submitBtn(user)).finally(() =>
-      setTimeout(() => {
-        dispatch(resetUserInfoStore())
-        console.log('DONe')
-      }, 6000)
-    )
+    submitBtn(user, setLoading)
   }
+
+  useEffect(() => {
+    if (
+      infoForm.some((el) => el.value === '' || checkInput(el.value, el.name))
+    ) {
+      setDisableBtn(true)
+    } else {
+      setDisableBtn(false)
+    }
+  }, [infoForm])
 
   return (
     <div className={styles.main}>
@@ -34,9 +36,10 @@ function Form({ form, submitBtn }) {
         ))}
         <Button
           type={'form'}
-          disabled={false}
+          disabled={disableBtn}
           name={submitName}
           onClick={handleApi}
+          loading={loading}
         />
       </div>
     </div>
