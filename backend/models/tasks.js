@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize')
 const db = require('../config/db')
-const Schema = require('./sh')
+const Schema = require('./schema')
 
 const Task = db.define('Task', {
   id: {

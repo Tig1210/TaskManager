@@ -21,9 +21,9 @@ export const fetchAddTask = async () => {
   }
 }
 
-export const fetchGetTasksBySchemeId = async () => {
+export const fetchGetTasksBySchemeId = async (id) => {
   try {
-    const res = await fetch(`${serverUrl}/getTasksBySchemeId/${1}`, {
+    const res = await fetch(`${serverUrl}/getTasksBySchemeId/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

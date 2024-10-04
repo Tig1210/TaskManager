@@ -1,10 +1,10 @@
 const express = require('express')
-const User = require('../models/users')
 
 const router = express.Router()
 
 const jwt = require('jsonwebtoken')
-const Sh = require('../models/sh')
+const User = require('../models/users')
+const Schema = require('../models/schema')
 
 router.post('/login', async (req, res) => {
   console.log(req.body)
@@ -49,9 +49,9 @@ router.post('/registration', async (req, res) => {
       login: login,
       password: password,
     })
-    await Sh.create({
+    await Schema.create({
       name: name,
-      headers_title: JSON.stringify(['К выполнению', 'В процессе', 'Завершен']),
+      headers_title: ['К выполнению', 'В процессе', 'Завершен'],
       userId: user.id,
     })
 

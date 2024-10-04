@@ -1,4 +1,5 @@
-import { fetchAddTask, fetchGetTasksBySchemeId } from '../../api/task/task'
+import { fetchGetSchemaById } from '../../api/schema/schema'
+import { fetchAddTask } from '../../api/task/task'
 import CardTask from '../../components/CardTask/CardTask'
 import styles from './Dashboard.module.scss'
 
@@ -6,77 +7,61 @@ import { useEffect, useState } from 'react'
 
 function Dashboard() {
   const [isDragging, setIsDragging] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState(null)
 
-  const getTasks = async () => {
-    try {
-      const res = await fetch(
-        `http://localhost:5000/api/tasksBySchemeId/${1}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-        }
-      )
-
-      console.log(res)
-      const result = await res.json()
-      console.log(result)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  console.log(isLoading)
 
   useEffect(() => {
-    getTasks()
-    fetchGetTasksBySchemeId()
+    fetchGetSchemaById(1, setIsLoading, setData)
   }, [])
 
-  const data = {
-    id: 1,
-    accessUsers: [],
-    headerTitles: ['К выполнению', 'В процессе', 'Завершен', 'Тестирование'],
-    cardsList: [
-      {
-        id: 1,
-        dashboardId: 1,
-        content: {
-          title: 'Начало',
-          createdData: '23.09.2024',
-        },
-        status: 'К выполнению',
-      },
-      {
-        id: 2,
-        dashboardId: 1,
-        content: {
-          title: 'Среднее',
-          createdData: '23.09.2024',
-        },
-        status: 'К выполнению',
-      },
-      {
-        id: 3,
-        dashboardId: 1,
-        content: {
-          title: 'Конец',
-          createdData: '23.09.2024',
-        },
-        status: 'К выполнению',
-      },
-      {
-        id: 4,
-        dashboardId: 1,
-        content: {
-          title: 'Завершен',
-          createdData: '23.09.2024',
-        },
-        status: 'К выполнению',
-      },
-    ],
-  }
+  // const data = {
+  //   id: 1,
+  //   accessUsers: [],
+  //   headerTitles: ['К выполнению', 'В процессе', 'Завершен', 'Тестирование'],
+  //   cardsList: [
+  //     {
+  //       id: 1,
+  //       dashboardId: 1,
+  //       content: {
+  //         title: 'Начало',
+  //         createdData: '23.09.2024',
+  //       },
+  //       status: 'К выполнению',
+  //     },
+  //     {
+  //       id: 2,
+  //       dashboardId: 1,
+  //       content: {
+  //         title: 'Среднее',
+  //         createdData: '23.09.2024',
+  //       },
+  //       status: 'К выполнению',
+  //     },
+  //     {
+  //       id: 3,
+  //       dashboardId: 1,
+  //       content: {
+  //         title: 'Конец',
+  //         createdData: '23.09.2024',
+  //       },
+  //       status: 'К выполнению',
+  //     },
+  //     {
+  //       id: 4,
+  //       dashboardId: 1,
+  //       content: {
+  //         title: 'Завершен',
+  //         createdData: '23.09.2024',
+  //       },
+  //       status: 'К выполнению',
+  //     },
+  //   ],
+  // }
 
-  const [cards, setCards] = useState(data.cardsList)
+  const [cards, setCards] = useState(data?.tasks)
+  console.log(data)
 
   const handleUpdateList = (id, status) => {
     console.log(id, status)
@@ -111,44 +96,50 @@ function Dashboard() {
 
   return (
     <div className={styles.main}>
-      <div className={styles.menu}>
-        <div className={styles.block}>
-          <button onClick={() => fetchAddTask()}>+</button>
-        </div>
-      </div>
-      <div className={styles.dashboard}>
-        <div className={styles.table}>
-          <div
-            className={styles.container}
-            style={{
-              gridTemplateColumns: `repeat(${data.headerTitles.length}, 1fr)`,
-            }}
-          >
-            {data.headerTitles.map((header, index) => (
-              <div
-                key={index}
-                className={`${styles.column} ${isDragging ? styles.column__dragging : ''}`}
-                onDragOver={handleDragOver}
-                onDrop={(e) => handleDrop(e, header)}
-              >
-                <h2>{header}</h2>
-                <div className={styles.cardsList}>
-                  {cards
-                    .filter((card) => card.status === header)
-                    .map((card) => (
-                      <CardTask
-                        card={card}
-                        key={card.id}
-                        handleDragStart={handleDragStart}
-                        handleDragEnd={handleDragEnd}
-                      />
-                    ))}
-                </div>
-              </div>
-            ))}
+      {isLoading ? (
+        <div>LOADING....</div>
+      ) : (
+        <>
+          <div className={styles.menu}>
+            <div className={styles.block}>
+              <button onClick={() => fetchAddTask()}>+</button>
+            </div>
           </div>
-        </div>
-      </div>
+          <div className={styles.dashboard}>
+            <div className={styles.table}>
+              <div
+                className={styles.container}
+                style={{
+                  gridTemplateColumns: `repeat(${data?.schemeInfo?.headers_title?.length}, 1fr)`,
+                }}
+              >
+                {data?.schemeInfo?.headers_title?.map((header, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.column} ${isDragging ? styles.column__dragging : ''}`}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDrop(e, header)}
+                  >
+                    <h2>{header}</h2>
+                    <div className={styles.cardsList}>
+                      {cards
+                        ?.filter((card) => card.status === header)
+                        ?.map((card) => (
+                          <CardTask
+                            card={card}
+                            key={card.id}
+                            handleDragStart={handleDragStart}
+                            handleDragEnd={handleDragEnd}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

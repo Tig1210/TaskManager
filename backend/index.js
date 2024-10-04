@@ -7,11 +7,13 @@ const cors = require('cors')
 
 const auth = require('./routers/auth')
 const task = require('./routers/task')
+const schema = require('./routers/schema')
 
 app.use(express.json())
 app.use(cors())
 
 app.use('/api', auth)
+app.use('/api', schema)
 app.use('/api', task)
 
 sequelize

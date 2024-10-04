@@ -9,7 +9,7 @@ const Schema = db.define('Schema', {
     primaryKey: true,
   },
   name: DataTypes.STRING,
-  headers_title: DataTypes.STRING,
+  headers_title: DataTypes.JSON,
   userId: {
     type: DataTypes.INTEGER,
     references: {
@@ -21,6 +21,7 @@ const Schema = db.define('Schema', {
 
 Schema.belongsTo(User, {
   foreignKey: 'userId',
+  onDelete: 'CASCADE',
 })
 
 module.exports = Schema
